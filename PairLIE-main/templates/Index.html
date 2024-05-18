@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Uploader</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Arial, sans-serif;
+        }
+
+        .topnav {
+            background-color: #312829b3;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .topnav a {
+            float: left;
+            color: #ffffff;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+            width: 25%;
+            box-sizing: border-box;
+            font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+
+        .topnav a:hover {
+            background-color: #ddd;
+            color: rgb(89, 84, 244);
+        }
+
+        .topnav a.active {
+            background-color: #d5bdd8;
+            color: white;
+        }
+
+        .full-width-image {
+            width: 100%;
+            margin: 0;
+        }
+
+        .full-width-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .container {
+    display: inline-flex; /* Change display to inline-flex */
+    flex-direction: row; /* Make it a row layout */
+    align-items: center; /* Align items vertically */
+    padding: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+#previewSection {
+    margin-left: 20px; /* Add some margin between form and preview section */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+        .container button {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  font-size: 17px;
+  padding: 1em 2.7em;
+  font-weight: 500;
+  background: #1f2937;
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.6em;
+  cursor: pointer;
+}
+
+.container .gradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border-radius: 0.6em;
+  margin-top: -0.25em;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.3)
+  );
+}
+
+.container .label {
+  position: relative;
+  top: -1px;
+}
+
+.container .transition {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 500ms;
+  background-color: rgba(16, 185, 129, 0.6);
+  border-radius: 9999px;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container button:hover .transition {
+  width: 14em;
+  height: 14em;
+}
+
+.container button:active {
+  transform: scale(0.97);
+}
+
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #imagePreview,
+        #imageContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        #imagePreview img,
+        #imageContainer img {
+            max-width: 300px;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+            margin: 10px;
+        }
+
+        #arrow {
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+            position: relative;
+        }
+
+        #arrow:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #000;
+        }
+
+        #arrow:after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 100%;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-left: 10px solid #000;
+            transform: translateY(-50%);
+        }
+
+        #doc {
+            /* height: 740px; */
+            background-color: #ddd;
+            /* margin-top: 350px; */
+              margin-top: 10px;
+            padding: 20px;
+        }
+
+        #doc h1, #doc h3 {
+            font-family: "Comic Sans MS", cursive, sans-serif;
+        }
+        .profile {
+  max-width: 300px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  position: relative;
+  
+  h2 {
+    color: dark;
+  }
+  img{
+    border: '1px solid black';
+  }
+  
+  
+  .image {
+    width: 75px;
+    height: 75px;
+    background: red;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: absolute;
+    right: 15px;
+    left: 220px;
+    top: 15px;
+    transform-origin: bottom left;
+    box-shadow: 0 3px 15px rgba(dark, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    background-image: url("../static/output//team/img2.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+  
+  .image1 {
+    width: 75px;
+    height: 75px;
+    background: red;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: absolute;
+    right: 15px;
+    left: 220px;
+    top: 15px;
+    transform-origin: bottom left;
+    box-shadow: 0 3px 15px rgba(dark, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    background-image: url("../static/output//team/iimg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  .image2 {
+    width: 75px;
+    height: 75px;
+    background: red;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: absolute;
+    right: 15px;
+    left: 220px;
+    top: 15px;
+    transform-origin: bottom left;
+    box-shadow: 0 3px 15px rgba(dark, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    background-image: url("../static/output//team/WhatsApp\ Image\ 2024-05-02\ at\ 4.44.45\ PM.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+  
+  .image3 {
+    width: 75px;
+    height: 75px;
+    background: red;
+    border-radius: 50%;
+    margin: 0 auto;
+    position: absolute;
+    right: 15px;
+    left: 220px;
+    top: 15px;
+    transform-origin: bottom left;
+    box-shadow: 0 3px 15px rgba(dark, 0.1);
+    transition: all 0.3s ease-in-out;
+
+    background-image: url("../static/output//team/WhatsApp\ Image\ 2024-05-02\ at\ 4.45.19\ PM.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+  }
+
+  &:hover {
+    .image {
+      transform: scale(1.5);
+      border-radius: 10px;
+    }
+  }
+
+  &:hover {
+    .image1 {
+      transform: scale(1.5);
+      border-radius: 10px;
+    }
+  }
+
+  &:hover {
+    .image2 {
+      transform: scale(1.5);
+      border-radius: 10px;
+    }
+  }
+
+  &:hover {
+    .image3 {
+      transform: scale(1.5);
+      border-radius: 10px;
+    }
+  }
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="topnav">
+        <a class="active" href="#">Home</a>
+        <a href="#previewSection">Edit Image</a>
+        <a href="#doc">Documentation</a>
+        <a href="#about">About Us</a>
+    </div>
+
+    <div class="full-width-image">
+        <img src="../static/output/image3.jpg" alt="">
+    </div>
+
+    <div class="container">
+        <form id="imageForm">
+            <input type="file" id="imageInput" accept="image/*">
+            <button type="submit">
+                <span class="transition"></span>
+                <span class="gradient"></span>
+                <span class="label">Edit</span>
+            </button>
+        </form>
+
+        <div id="previewSection">
+            <div id="imagePreview">
+                <p>No image selected</p>
+            </div>
+            <div id="arrow" style="display: none;"></div>
+            <div id="imageContainer"></div>
+        </div>
+    </div>
+
+    <div id="doc">
+        <h1><center>DOCUMENTATION</center></h1>
+        <h3 style="width: 80%;margin:9px auto;">
+            We implement PairLIE with PyTorch. In the training phase, we randomly crop images to the size of 128 X 128.
+            A batch size of 1 is applied. We use ADAM with the initial learning rate of 1 X 10e4 to optimize the network. The number of training epochs is set to 400. The learning rate is half-decayed per 100 epochs. The default correction factor λ is 0.2.
+            <br><br>
+            Visual Comparisons: <br> The proposed method achieves visually pleasing results in terms of brightness, color, contrast, and naturalness.
+            <br><br>
+            The applications of low light image enhancement:<br>
+            - Surveillance and security<br>
+            - Astronomy<br>
+            - Medical imaging<br>
+            - Photography<br>
+            - Search and rescue operations<br>
+            - Biometric identification<br>
+            - Automotive safety<br>
+            - Art restoration
+            <br><br>
+            The Future Aspects of low light image enhancement:<br>
+            - Development of noise reduction techniques<br>
+            - Exploration of advanced color mapping<br>
+            - Enhancement of adaptability to varying lighting conditions<br>
+            - Focus on reducing computational loads<br>
+            - Research on comprehensive evaluation metrics
+            <br><br>
+            Enjoy Using LLIE Tool !!!
+        </h3>
+    </div>
+
+    <div id="about" class="box5" style="margin-top: 100px; height: 800px; float: left; width: 50%;">
+        <div class="container">
+          <div class="profile">
+            <div class="image"></div>
+            <h2 style="font-family:comic sans ms;">Shubhangi Tyagi</h2>
+            <p style="font-family:comic sans ms;">Roll No : 20EEACS097<br>
+              Branch : Computer Science<br>
+              Batch : C4<br>
+              <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;
+            </p>
+          </div>
+        </div>
+        <div class="container">
+          <div class="profile">
+            <div class="image1"></div>
+            <h2 style="font-family:comic sans ms;">Gaurav Singh</h2>
+            <p style="font-family:comic sans ms;">Roll No : 20EEACS037<br>
+              Branch : Computer Science<br>
+              Batch : C2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;</p>
+          </div>
+        </div>
+      </div>
+      <div class="box6" style="margin-top: 100px; height: 800px; float: right; width: 50%;">
+        <div class="container">
+          <div class="profile">
+            <div class="image2"></div>
+            <h2 style="font-family:comic sans ms;">Gautam Goswami</h2>
+            <p style="font-family:comic sans ms;">Roll No : 20EEACS038 <br>
+              Branch : Computer Science<br>
+              Batch : C2<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;</p>
+          </div>
+        </div>
+        <div class="container">
+          <div class="profile">
+            <div class="image3"></div>
+            <h2 style="font-family:comic sans ms;">Gaurav Rathore</h2>
+            <p style="font-family:comic sans ms;">Roll No : 20EEACS036<br>
+              Branch : Computer Science<br>
+              Batch : C2<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;</p>
+          </div>
+
+
+        </div>
+      <!-- <footer  style="background-color: red;text-align: center;">Copyright &copy; ECA@Ajmer  || All Rights Reserved 2024</footer> -->
+
+      </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('imageForm');
+            const imageInput = document.getElementById('imageInput');
+            const imagePreview = document.getElementById('imagePreview');
+            const imageContainer = document.getElementById('imageContainer');
+            const arrow = document.getElementById('arrow');
+
+            imageInput.addEventListener('change', function () {
+                const selectedImage = imageInput.files[0];
+                if (selectedImage) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        imagePreview.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.height = 300;
+                        img.width = 300;
+                        img.alt = 'Selected Image';
+                        imagePreview.appendChild(img);
+                        arrow.style.display = 'block';
+                    };
+                    reader.readAsDataURL(selectedImage);
+                } else {
+                    imagePreview.innerHTML = '<p>No image selected</p>';
+                    arrow.style.display = 'none';
+                }
+            });
+
+            form.addEventListener('submit', async function (event) {
+                event.preventDefault();
+
+                const formData = new FormData();
+                const selectedImage = imageInput.files[0];
+
+                if (!selectedImage) {
+                    alert('Please select an image.');
+                    return;
+                }
+
+                formData.append('image', selectedImage);
+
+                try {
+                    const response = await fetch('/upload', {
+                        method: 'POST',
+                        body: formData,
+                    });
+                    const responseData = await response.json();
+                    if (response.ok) {
+                        const img = document.createElement("img");
+                        img.src = `static/${responseData.image}`;
+                        img.alt = 'Output Image';
+
+                        imageContainer.innerHTML = '';
+                        imageContainer.appendChild(img);
+                    } else {
+                        alert(responseData.error);
+                    }
+                } catch (error) {
+                    console.error('Error uploading image:', error);
+                    alert('Error uploading image. Please try again.');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
